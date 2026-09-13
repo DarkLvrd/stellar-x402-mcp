@@ -1,0 +1,29 @@
+{
+  "name": "stellar-x402-mcp",
+  "version": "0.1.0",
+  "description": "Give an AI agent a Stellar wallet with a spending budget enforced by a Soroban smart contract — an x402 payer that cannot overspend, even if the agent is compromised.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "stellar-x402-mcp": "dist/index.js" },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run build && npm test"
+  },
+  "engines": { "node": ">=20" },
+  "keywords": ["mcp","model-context-protocol","x402","stellar","soroban","payments","ai-agents","smart-account","spending-limit"],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@stellar/stellar-sdk": "^16.3.0",
+    "@x402/stellar": "^2.25.0",
+    "smart-account-kit": "^0.8.0",
+    "zod": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
+  }
+}
