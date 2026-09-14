@@ -1,5 +1,6 @@
 export { defineBudget, isContractId, type Budget, type BudgetInput } from "./budget.js";
 export { installBudget, type BudgetInstallation } from "./install.js";
+export { loadBudgetFile, parseBudgetFile, type BudgetFile } from "./file.js";
 export {
   ONLY_CALL_CONTRACT_ALLOWED,
   SPENDING_LIMIT_EXCEEDED,

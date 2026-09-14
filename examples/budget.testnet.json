@@ -1,0 +1,7 @@
+{
+  "network": "testnet",
+  "amount": "5",
+  "windowDays": 1,
+  "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA",
+  "label": "research allowance"
+}

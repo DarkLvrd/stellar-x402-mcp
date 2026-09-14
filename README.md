@@ -70,6 +70,29 @@ This project is **pre-1.0 and unaudited**. Read this before using it with anythi
 - **Hot keys.** The agent holds a key that can spend within its budget. Keep budgets small enough that losing one is survivable.
 - **Unaudited dependencies.** `smart-account-kit` describes itself as *"unaudited integration software"* and warns: *"Limit balances, signer permissions, policy allowances, and relayer permissions. Do not store or control assets you cannot afford to lose."* The underlying OpenZeppelin contracts carry a [separate audit](https://www.openzeppelin.com/news/stellar-contracts-rc-v0.7.0-audit) with a different scope.
 
+A budget is also a file, because it is the artefact a human approves. `examples/budget.testnet.json`:
+
+```json
+{
+  "network": "testnet",
+  "amount": "5",
+  "windowDays": 1,
+  "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA",
+  "label": "research allowance"
+}
+```
+
+```ts
+import { loadBudgetFile } from "stellar-x402-mcp";
+
+const budget = await loadBudgetFile("./budget.json");
+```
+
+Two rules make the file trustworthy, and both are enforced in the schema rather than checked at the point of payment:
+
+- **Unknown fields are rejected.** `"windowDay"` instead of `"windowDays"` is an error, not a silent default. A budget that quietly accepted a default is a budget the human never approved.
+- **The network must be `testnet`.** A mainnet budget is not a configuration option in v1, and it is refused where it is written, not where it is spent.
+
 ## The budget model
 
 A budget is data. It can be written to a file, reviewed, and handed to someone else to inspect.
