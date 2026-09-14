@@ -14,6 +14,12 @@ export type Budget = {
   readonly windowLedgers: number;
   /** SEP-41 contract id of the asset that may be spent. */
   readonly asset: string;
+  /**
+   * Decimal places of the asset. Carried on the budget because base units are
+   * meaningless without it, and a limit shown at the wrong scale is a limit the
+   * human misreads.
+   */
+  readonly decimals: number;
   /** Human description, carried into the audit trail. */
   readonly label: string;
 };
@@ -30,7 +36,10 @@ export type BudgetInput = {
   windowDays: number;
   /** SEP-41 contract id of the spendable asset. */
   asset: string;
-  /** Decimals for the asset. Defaults to USDC's 7. */
+  /**
+   * Decimals for the asset. Defaults to USDC's 7 as a convenience for code, but
+   * a budget file must state it explicitly — see `parseBudgetFile`.
+   */
   decimals?: number;
   /** Optional human description. */
   label?: string;
@@ -62,6 +71,7 @@ export function defineBudget(input: BudgetInput): Budget {
     limit,
     windowLedgers,
     asset: input.asset,
+    decimals,
     label: input.label ?? `${input.amount} per ${input.windowDays} day(s)`,
   };
 }

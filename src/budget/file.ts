@@ -24,6 +24,8 @@ const BudgetFileSchema = z.strictObject({
   asset: z.string().describe("SEP-41 contract id").refine(isContractId, {
     message: "must be a SEP-41 contract id (C followed by 55 base-32 characters)",
   }),
+  /** Decimal places of the asset. Required: base units cannot be read without it. */
+  decimals: z.number().int().min(0).max(18),
   /** Human description, carried into the audit trail. */
   label: z.string().min(1).optional(),
   /** v1 is testnet only. Anything else is refused here. */
@@ -59,6 +61,7 @@ export function parseBudgetFile(text: string, source = "<budget>"): Budget {
     amount: parsed.data.amount,
     windowDays: parsed.data.windowDays,
     asset: parsed.data.asset,
+    decimals: parsed.data.decimals,
     ...(parsed.data.label === undefined ? {} : { label: parsed.data.label }),
   });
 }

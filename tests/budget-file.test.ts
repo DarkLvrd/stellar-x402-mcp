@@ -9,6 +9,7 @@ const VALID = JSON.stringify({
   network: "testnet",
   amount: "5",
   windowDays: 1,
+  decimals: 7,
   asset: TESTNET.usdc,
   label: "research allowance",
 });
@@ -47,8 +48,21 @@ describe("parseBudgetFile", () => {
   });
 
   it("refuses a budget with no amount", () => {
-    const missing = JSON.stringify({ network: "testnet", windowDays: 1, asset: TESTNET.usdc });
+    const missing = JSON.stringify({ network: "testnet", windowDays: 1,
+  decimals: 7, asset: TESTNET.usdc });
     expect(() => parseBudgetFile(missing, "budget.json")).toThrow(/amount/);
+  });
+
+  it("refuses a budget that does not state the asset's decimals", () => {
+    // Without decimals, base units cannot be read back at the right scale, and
+    // the human would be shown a budget they did not approve.
+    const noDecimals = JSON.stringify({
+      network: "testnet",
+      amount: "5",
+      windowDays: 1,
+      asset: TESTNET.usdc,
+    });
+    expect(() => parseBudgetFile(noDecimals, "budget.json")).toThrow(/decimals/);
   });
 
   it("refuses a network that is not testnet", () => {
@@ -62,6 +76,7 @@ describe("parseBudgetFile", () => {
     const noNetwork = JSON.stringify({
       amount: "5",
       windowDays: 1,
+  decimals: 7,
       asset: TESTNET.usdc,
     });
     expect(() => parseBudgetFile(noNetwork, "budget.json")).toThrow(/network/);

@@ -70,6 +70,28 @@ This project is **pre-1.0 and unaudited**. Read this before using it with anythi
 - **Hot keys.** The agent holds a key that can spend within its budget. Keep budgets small enough that losing one is survivable.
 - **Unaudited dependencies.** `smart-account-kit` describes itself as *"unaudited integration software"* and warns: *"Limit balances, signer permissions, policy allowances, and relayer permissions. Do not store or control assets you cannot afford to lose."* The underlying OpenZeppelin contracts carry a [separate audit](https://www.openzeppelin.com/news/stellar-contracts-rc-v0.7.0-audit) with a different scope.
 
+## Tools
+
+Three tools, all of which work today.
+
+| Tool | What it does |
+|---|---|
+| `get_budget` | Reports the approved budget — the limit, the window it resets over, and the asset |
+| `check_spend` | Advises whether a payment would fit, given what has already been spent |
+| `explain_refusal` | Explains a payment the contract refused, from a diagnostic or an error code |
+
+Run it:
+
+```bash
+BUDGET_FILE=examples/budget.testnet.json stellar-x402-mcp
+```
+
+`pay` is deliberately absent. It needs a signing path that does not exist yet (see the issue tracker), and a tool that pretended to pay would be worse than no tool.
+
+The design rule worth noticing: **`check_spend` states in its own output that its answer is not the authority.** The contract decides; this server can be wrong. A caller that treats our arithmetic as the guarantee has misunderstood the point of the project.
+
+## The budget file
+
 A budget is also a file, because it is the artefact a human approves. `examples/budget.testnet.json`:
 
 ```json
