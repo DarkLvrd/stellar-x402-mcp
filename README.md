@@ -60,7 +60,7 @@ Because the difference is exactly the thing you want from a limit.
 - [ ] Smart-account wiring — deploy, add agent key, install budget
 - [ ] x402 payment path signed from the smart account
 - [ ] MCP surface and tools
-- [ ] End-to-end testnet proof: one payment allowed, one refused
+- [ ] End-to-end testnet proof: one payment allowed, one refused — steps in [`docs/testnet-walkthrough.md`](docs/testnet-walkthrough.md)
 
 ## Security
 
