@@ -17,6 +17,7 @@ Every issue must be completable inside one 7-day Wave.
 | 08 | Automate the testnet walkthrough | High 200 | headless setup |
 | 09 | Wire the `pay` tool to x402 | High 200 | upstream signing |
 | 10 | Headless setup path | High 200 | — |
+| 11 | Ensure no unrestricted rule | High 200 | — |
 
 ## Before posting
 
@@ -25,5 +26,7 @@ Every issue must be completable inside one 7-day Wave.
 - [ ] Decide whether 08 and 09 go up now or stay drafted until unblocked
 
 Two blocked tickets is honest — they are the real, hard work — but a contributor
-who picks one up and cannot start will not come back. Consider posting 01–07 and
-10 first, and holding 08–09 until their blockers clear.
+who picks one up and cannot start will not come back. Consider posting 01–07, 10 and
+11 first, and holding 08–09 until their blockers clear. Issue 11 is not blocked and
+is arguably the most important ticket in the list — it came out of a real testnet
+failure (ADR-0003).
